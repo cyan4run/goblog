@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"hello_goland/models"
 	"html/template"
 	"log"
 	"net/http"
@@ -29,7 +30,8 @@ func index(w http.ResponseWriter, r *http.Request) {
 	pagination := path + "/template/layout/pagination.html"
 	t, _ = t.ParseFiles(path+"/template/index.html", home, header, footer, personal, post, pagination) //路径设置要正确
 	//页面涉及数据，需要有定义
-	t.Execute(w, indexData)
+	var hr = &models.HomeResponse{}
+	t.Execute(w, hr)
 }
 func main() {
 	//web应用
