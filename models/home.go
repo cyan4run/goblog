@@ -5,7 +5,7 @@ import "hello_goland/config"
 type HomeResponse struct {
 	config.Viewer
 	Categorys []Category
-	Posts     []Postmore
+	Posts     []PostMore
 	Total     int
 	Page      int
 	Pages     []int
