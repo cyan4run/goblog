@@ -7,12 +7,12 @@ import (
 	"html/template"
 )
 
-func GetAllIndexInfo(page, pageSize int) (*models.HomeResponse, error) {
+func GetPostsByCategoryID(cID, page, pageSize int) (*models.CategoryResponse, error) {
 	categorys, err := dao.GetAllCategory()
 	if err != nil {
 		return nil, err
 	}
-	posts, err := dao.GetPostPage(page, pageSize)
+	posts, err := dao.GetPostPageByCategoryID(cID, page, pageSize)
 	var postMores []models.PostMore
 	for _, post := range posts {
 		categoryName := dao.GetCategoryNameByID(post.CategoryId)
@@ -37,7 +37,7 @@ func GetAllIndexInfo(page, pageSize int) (*models.HomeResponse, error) {
 		}
 		postMores = append(postMores, postMore)
 	}
-	total := dao.CountGetAllPost()
+	total := dao.CountGetAllPostByCategoryID(cID)
 	pagesCount := (total-1)/10 + 1
 	var pages []int
 	for i := 0; i < pagesCount; i++ {
@@ -52,6 +52,10 @@ func GetAllIndexInfo(page, pageSize int) (*models.HomeResponse, error) {
 		pages,
 		page != pagesCount,
 	}
-	return hr, nil
-
+	categoryName := dao.GetCategoryNameByID(cID)
+	categoryResponse := &models.CategoryResponse{
+		hr,
+		categoryName,
+	}
+	return categoryResponse, nil
 }
