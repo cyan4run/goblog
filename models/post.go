@@ -47,12 +47,23 @@ type PostReq struct {
 }
 
 type SearchResp struct {
-	Pid   int    `orm:"pid" json:"pid"` // 文章ID
-	Title string `orm:"title" json:"title"`
+	Pid   int    `json:"pid"` // 文章ID
+	Title string ` json:"title"`
 }
 
 type PostRes struct {
 	config.Viewer
 	config.SystemConfig
 	Article PostMore
+}
+type WritingRes struct {
+	Title     string
+	CdnURL    string
+	Categorys []Category
+}
+type PigeonholeRes struct {
+	config.Viewer
+	config.SystemConfig
+	Categorys []Category
+	Lines     map[string][]Post
 }

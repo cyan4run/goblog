@@ -36,7 +36,7 @@ function initEditor() {
 }
 function uploadImage(file, cb) {
   const config = {
-    useCdnDomain: true,
+    useCdnDomain: false,
     region: qiniu.region.z1
   };
   const putExtra = {
@@ -59,7 +59,7 @@ function uploadImage(file, cb) {
         },
         complete(res){
           console.log(res)
-          cb("https://static.mszlu.com/" + res.key)
+          cb("http://s7raqjd2c.hb-bkt.clouddn.com" + res.key)
         }
       }
       const subscription = observable.subscribe(observer) // 上传开始
